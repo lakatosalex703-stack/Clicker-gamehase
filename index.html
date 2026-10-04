@@ -1,10 +1,13 @@
-
-      <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="hu">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kattintgatós Játék & Bónusz</title>
+  
+  <!-- CPAGrip hivatalos szkriptje -->
+  <script type="text/javascript" src="https://quartzfiles.com/script_include.php?id=1917282"></script>
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -39,6 +42,7 @@
       display: inline-block;
       width: 80%;
     }
+    .btn:active { transform: scale(0.95); }
     #clickBtn {
       width: 130px;
       height: 130px;
@@ -67,7 +71,8 @@
       <h3>🎁 Ingyenes Bónusz!</h3>
       <p>Kattints a gombra a regisztrációhoz és kapj <b>+1000 Extra Pontot</b>!</p>
 
-      <button class="btn" onclick="openOffer()">Regisztráció & Bónusz</button>
+      <!-- Ez hívja meg a CPAGrip hivatalos felugró ablakát -->
+      <button class="btn" onclick="call_locker();">Regisztráció & Bónusz</button>
     </div>
 
     <div id="game-section">
@@ -84,12 +89,11 @@
       document.getElementById('score').innerText = score;
     }
 
-    function openOffer() {
-      // Megnyitja az ajánlatot
-      window.open('https://quartzfiles.com/show.php?l=0&u=1917282&id=1917282', '_blank');
-      // Jóváírja a bónusz pontot a játékban
+    // Amikor a felhasználó sikeresen elvégzi a feladatot a felugró ablakban
+    function CPAGripComplete() {
       score += 1000;
       document.getElementById('score').innerText = score;
+      alert("Sikeres regisztráció! Jóváírtunk +1000 bónusz pontot!");
     }
   </script>
 </body>
