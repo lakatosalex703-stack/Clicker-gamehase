@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kattintgatós Játék & Bónusz</title>
+  
+  <!-- A TE CPAGRIP KÓDOD BEÉPÍTVE -->
+  <script type="text/javascript" src="https://quartzfiles.com/script_include.php?id=1917282"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #1a1a2e;
+      color: white;
+      padding: 20px;
+      margin: 0;
+    }
+    .card {
+      background: #16213e;
+      padding: 25px;
+      border-radius: 15px;
+      max-width: 380px;
+      margin: 30px auto;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+    }
+    h1 { color: #e94560; font-size: 26px; }
+    p { font-size: 15px; color: #cbd5e1; }
+    .btn {
+      padding: 15px 30px;
+      font-size: 18px;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background: #e94560;
+      color: white;
+      margin-top: 15px;
+      width: 80%;
+      box-shadow: 0 4px 10px rgba(233, 69, 96, 0.4);
+    }
+    .btn:active { transform: scale(0.95); }
+    #clickBtn {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      font-size: 22px;
+      background: #0f3460;
+      border: 4px solid #e94560;
+    }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>Kattintgatós Játék</h1>
+    <p>Regisztrálj és játsz az ingyenes jutalmakért!</p>
+
+    <!-- Zárt tartalom / Regisztráció feloldása gomb -->
+    <div id="lock-section">
+      <p>A játék elindításához és a bónusz jóváírásához kattints a lenti gombra és végezd el az ingyenes regisztrációt!</p>
+      <button class="btn" onclick="call_locker();">Regisztráció & Belépés</button>
+    </div>
+
+    <!-- A játék maga (a feloldás után válik láthatóvá) -->
+    <div id="game-section" class="hidden">
+      <h2>Pontszám: <span id="score">0</span></h2>
+      <button id="clickBtn" class="btn" onclick="addPoint()">KATT!</button>
+    </div>
+  </div>
+
+  <script>
+    let score = 0;
+
+    function addPoint() {
+      score++;
+      document.getElementById('score').innerText = score;
+    }
+
+    // A CPAGrip által hívott funkció sikeres feladat/regisztráció után
+    function CPAGripComplete() {
+      document.getElementById('lock-section').classList.add('hidden');
+      document.getElementById('game-section').classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>
