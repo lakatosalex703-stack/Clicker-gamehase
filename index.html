@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kattintgatós Játék & Bónusz</title>
   
-  <!-- A TE CPAGRIP KÓDOD BEÉPÍTVE -->
+  <!-- CPAGRIP KÓD -->
   <script type="text/javascript" src="https://quartzfiles.com/script_include.php?id=1917282"></script>
 
   <style>
@@ -22,10 +22,10 @@
       padding: 25px;
       border-radius: 15px;
       max-width: 380px;
-      margin: 30px auto;
+      margin: 20px auto;
       box-shadow: 0 8px 16px rgba(0,0,0,0.4);
     }
-    h1 { color: #e94560; font-size: 26px; }
+    h1 { color: #e94560; font-size: 26px; margin-bottom: 10px; }
     p { font-size: 15px; color: #cbd5e1; }
     .btn {
       padding: 15px 30px;
@@ -45,27 +45,35 @@
       width: 140px;
       height: 140px;
       border-radius: 50%;
-      font-size: 22px;
+      font-size: 24px;
       background: #0f3460;
       border: 4px solid #e94560;
+      margin: 20px auto;
+      display: block;
     }
-    .hidden { display: none; }
+    .bonus-box {
+      border: 2px dashed #e94560;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      background: #1a1a2e;
+    }
   </style>
 </head>
 <body>
 
   <div class="card">
     <h1>Kattintgatós Játék</h1>
-    <p>Regisztrálj és játsz az ingyenes jutalmakért!</p>
 
-    <!-- Zárt tartalom / Regisztráció feloldása gomb -->
-    <div id="lock-section">
-      <p>A játék elindításához és a bónusz jóváírásához kattints a lenti gombra és végezd el az ingyenes regisztrációt!</p>
-      <button class="btn" onclick="call_locker();">Regisztráció & Belépés</button>
+    <!-- Bónusz / Regisztráció szekció (Ez hozza a pénzt) -->
+    <div class="bonus-box">
+      <h3>🎁 Ingyenes Bónusz!</h3>
+      <p>Kattints a gombra, végezd el az ingyenes regisztrációt és kapj <b>+1000 Extra Pontot</b>!</p>
+      <button class="btn" onclick="call_locker();">Regisztráció & Bónusz</button>
     </div>
 
-    <!-- A játék maga (a feloldás után válik láthatóvá) -->
-    <div id="game-section" class="hidden">
+    <!-- A játék mindig látható -->
+    <div id="game-section">
       <h2>Pontszám: <span id="score">0</span></h2>
       <button id="clickBtn" class="btn" onclick="addPoint()">KATT!</button>
     </div>
@@ -79,10 +87,11 @@
       document.getElementById('score').innerText = score;
     }
 
-    // A CPAGrip által hívott funkció sikeres feladat/regisztráció után
+    // Ha valaki elvégzi a CPAGrip regisztrációt, megkapja az 1000 bónusz pontot
     function CPAGripComplete() {
-      document.getElementById('lock-section').classList.add('hidden');
-      document.getElementById('game-section').classList.remove('hidden');
+      score += 1000;
+      document.getElementById('score').innerText = score;
+      alert("Sikeres regisztráció! Jóváírtunk +1000 Bónusz pontot!");
     }
   </script>
 </body>
