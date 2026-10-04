@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+
+      <!DOCTYPE html>
 <html lang="hu">
 <head>
   <meta charset="UTF-8">
@@ -35,8 +36,8 @@
       color: white;
       margin-top: 15px;
       box-shadow: 0 4px 10px rgba(233, 69, 96, 0.4);
-      text-decoration: none;
       display: inline-block;
+      width: 80%;
     }
     #clickBtn {
       width: 130px;
@@ -66,7 +67,7 @@
       <h3>🎁 Ingyenes Bónusz!</h3>
       <p>Kattints a gombra a regisztrációhoz és kapj <b>+1000 Extra Pontot</b>!</p>
 
-      <a class="btn" href="https://quartzfiles.com/show.php?l=0&u=1917282&id=1917282" target="_blank" rel="noopener noreferrer">Regisztráció & Bónusz</a>
+      <button class="btn" onclick="openOffer()">Regisztráció & Bónusz</button>
     </div>
 
     <div id="game-section">
@@ -80,6 +81,14 @@
 
     function addPoint() {
       score++;
+      document.getElementById('score').innerText = score;
+    }
+
+    function openOffer() {
+      // Megnyitja az ajánlatot
+      window.open('https://quartzfiles.com/show.php?l=0&u=1917282&id=1917282', '_blank');
+      // Jóváírja a bónusz pontot a játékban
+      score += 1000;
       document.getElementById('score').innerText = score;
     }
   </script>
