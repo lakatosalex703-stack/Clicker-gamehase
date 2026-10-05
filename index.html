@@ -3,98 +3,182 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kattintgatós Játék</title>
+  <title>Szerencsekerék - Nyerj Exkluzív Jutalmakat!</title>
   
-  <!-- Új CPAGrip szkript az frissített ID-val -->
+  <!-- CPAGrip hivatalos szkripted -->
   <script type="text/javascript" src="https://quartzfiles.com/script_include.php?id=1917282"></script>
 
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      background-color: #1a1a2e;
-      color: white;
-      padding: 20px;
+    * {
+      box-sizing: border-box;
       margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0f172a;
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
     }
     .card {
-      background: #16213e;
+      background: #1e293b;
       padding: 25px;
-      border-radius: 15px;
-      max-width: 380px;
-      margin: 20px auto;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+      border-radius: 20px;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      border: 1px solid #334155;
     }
-    h1 { color: #e94560; font-size: 26px; margin-bottom: 10px; }
-    h2 { font-size: 22px; color: #f1c40f; }
-    p { font-size: 14px; color: #cbd5e1; }
+    h1 {
+      color: #f59e0b;
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+    p {
+      color: #94a3b8;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    /* Kerék konténer és mutató */
+    .wheel-container {
+      position: relative;
+      width: 260px;
+      height: 260px;
+      margin: 0 auto 20px auto;
+    }
+    .pointer {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 15px solid transparent;
+      border-right: 15px solid transparent;
+      border-top: 25px solid #ef4444;
+      z-index: 10;
+    }
+    .wheel {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 5px solid #334155;
+      background: conic-gradient(
+        #3b82f6 0deg 60deg,
+        #10b981 60deg 120deg,
+        #f59e0b 120deg 180deg,
+        #8b5cf6 180deg 240deg,
+        #ec4899 240deg 300deg,
+        #ef4444 300deg 360deg
+      );
+      transition: transform 4s cubic-bezier(0.15, 0.85, 0.35, 1.2);
+    }
+
+    /* Gombok */
     .btn {
-      padding: 14px 20px;
-      font-size: 17px;
+      width: 100%;
+      padding: 14px;
+      font-size: 18px;
       font-weight: bold;
       border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      background: #e94560;
-      color: white;
-      margin-top: 10px;
-      box-shadow: 0 4px 10px rgba(233, 69, 96, 0.4);
-      display: inline-block;
-      width: 85%;
-    }
-    .btn:active { transform: scale(0.95); }
-    #clickBtn {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      font-size: 22px;
-      background: #0f3460;
-      border: 4px solid #e94560;
-      margin: 20px auto;
-      display: block;
-      color: white;
-    }
-    .account-box {
-      border: 1px solid #334155;
-      padding: 15px;
       border-radius: 10px;
-      margin-bottom: 20px;
+      cursor: pointer;
+      background: #f59e0b;
+      color: #0f172a;
+      transition: transform 0.1s ease, background 0.2s;
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+    }
+    .btn:active {
+      transform: scale(0.96);
+    }
+    .btn:disabled {
+      background: #475569;
+      color: #94a3b8;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    /* Nyeremény doboz */
+    .prize-box {
+      display: none;
+      margin-top: 20px;
+      padding: 15px;
       background: #0f172a;
+      border: 2px dashed #10b981;
+      border-radius: 12px;
+      animation: fadeIn 0.5s ease;
+    }
+    .prize-title {
+      color: #10b981;
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
 
   <div class="card">
-    <h1>Kattintgatós Játék</h1>
+    <h1>🎰 Szerencsekerék</h1>
+    <p>Pörgesd meg a kereket és nyerj exkluzív jutalmat!</p>
 
-    <!-- Regisztráció gomb, ami meghívja a CPAGrip ablakot -->
-    <div class="account-box">
-      <p>💡 <b>Hozz létre fiókot</b>, hogy el tudd menteni a gyűjtött Coin-jaidat!</p>
-      <button class="btn" onclick="openLocker()">Regisztráció</button>
+    <div class="wheel-container">
+      <div class="pointer"></div>
+      <div class="wheel" id="wheel"></div>
     </div>
 
-    <!-- Játék rész -->
-    <div id="game-section">
-      <h2>Coinok: <span id="score">0</span> 🪙</h2>
-      <button id="clickBtn" class="btn" onclick="addPoint()">KATT!</button>
+    <button id="spinBtn" class="btn" onclick="spinWheel()">PÖRGETÉS!</button>
+
+    <!-- Ez jelenik meg a pörgetés után -->
+    <div id="prizeBox" class="prize-box">
+      <div class="prize-title">🎉 GRATULÁLUNK! 🎉</div>
+      <p style="color: #fff; margin-bottom: 12px;">Nyereményed: <b id="prizeText" style="color:#f59e0b;">5000 Extra Coin</b></p>
+      <p>A nyeremény jóváírásához hozz létre egy ingyenes fiókot!</p>
+      <button class="btn" style="background:#10b981; color:white;" onclick="openLocker()">Nyeremény Kiváltása</button>
     </div>
   </div>
 
   <script>
-    let score = 0;
+    let isSpinning = false;
 
-    function addPoint() {
-      score++;
-      document.getElementById('score').innerText = score;
+    function spinWheel() {
+      if (isSpinning) return;
+      isSpinning = true;
+
+      const spinBtn = document.getElementById('spinBtn');
+      const wheel = document.getElementById('wheel');
+      const prizeBox = document.getElementById('prizeBox');
+
+      spinBtn.disabled = true;
+
+      // Véletlenszerű pörgetés kiszámítása (3-5 teljes kör + megállás)
+      const randomDegrees = Math.floor(1800 + Math.random() * 360);
+      wheel.style.transform = `rotate(${randomDegrees}deg)`;
+
+      // Amikor a pörgetési animáció véget ér (4 másodperc)
+      setTimeout(() => {
+        prizeBox.style.display = 'block';
+        spinBtn.style.display = 'none';
+      }, 4000);
     }
 
-    // Biztonságos felugró ablak meghívás
+    // CPAGrip felugró ablak meghívása
     function openLocker() {
       if (typeof call_locker === 'function') {
         call_locker();
       } else {
-        alert("A regisztrációs ablak még töltődik, próbáld újra egy pillanat múlva!");
+        alert("A regisztrációs ablak töltődik, próbáld újra egy pillanat múlva!");
       }
     }
   </script>
