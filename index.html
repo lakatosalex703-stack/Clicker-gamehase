@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kattintgatós Játék</title>
+  
+  <!-- Új CPAGrip szkript az frissített ID-val -->
+  <script type="text/javascript" src="https://quartzfiles.com/script_include.php?id=1917282"></script>
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -26,7 +30,7 @@
     p { font-size: 14px; color: #cbd5e1; }
     .btn {
       padding: 14px 20px;
-      font-size: 18px;
+      font-size: 17px;
       font-weight: bold;
       border: none;
       border-radius: 8px;
@@ -35,7 +39,6 @@
       color: white;
       margin-top: 10px;
       box-shadow: 0 4px 10px rgba(233, 69, 96, 0.4);
-      text-decoration: none;
       display: inline-block;
       width: 85%;
     }
@@ -65,10 +68,10 @@
   <div class="card">
     <h1>Kattintgatós Játék</h1>
 
-    <!-- Regisztráció gomb közvetlen hivatkozással -->
+    <!-- Regisztráció gomb, ami meghívja a CPAGrip ablakot -->
     <div class="account-box">
       <p>💡 <b>Hozz létre fiókot</b>, hogy el tudd menteni a gyűjtött Coin-jaidat!</p>
-      <a class="btn" href="https://quartzfiles.com/show.php?l=0&u=1917282&id=1917282" target="_blank" rel="noopener">Regisztráció</a>
+      <button class="btn" onclick="openLocker()">Regisztráció</button>
     </div>
 
     <!-- Játék rész -->
@@ -85,7 +88,15 @@
       score++;
       document.getElementById('score').innerText = score;
     }
+
+    // Biztonságos felugró ablak meghívás
+    function openLocker() {
+      if (typeof call_locker === 'function') {
+        call_locker();
+      } else {
+        alert("A regisztrációs ablak még töltődik, próbáld újra egy pillanat múlva!");
+      }
+    }
   </script>
 </body>
 </html>
-
